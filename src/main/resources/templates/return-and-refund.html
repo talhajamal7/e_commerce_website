@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMart | Return and Refund Policy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/return-and-refund-style.css}" rel="stylesheet">
+</head>
+<body>
+<main layout:fragment="main-section">
+<section class="policy-main">
+    <!-- Terms of Service -->
+    <div id="terms" class="policy-section">
+        <h2>Return & Refund Policy</h2>
+
+        <p>We want you to be completely satisfied with your purchase. If you're not happy with your gym equipment, we offer a hassle-free return and refund policy.</p>
+
+        <h3>Return Window</h3>
+        <p>You may return most new, unopened items within <strong>14 days of delivery</strong> for a full refund. Items must be in original condition with all packaging, accessories, and documentation.</p>
+
+        <div class="highlight-box">
+            <strong>Extended Return Period:</strong> Items purchased during sale events may have extended return windows. Check your order confirmation for specific details.
+        </div>
+
+        <h3>Eligibility for Returns</h3>
+        <p>Items eligible for return must meet the following conditions:</p>
+        <ul>
+            <li>Unused and in original condition</li>
+            <li>Original packaging intact (boxes, styrofoam, protective wrapping)</li>
+            <li>All accessories, manuals, and documentation included</li>
+            <li>No signs of assembly or installation</li>
+            <li>Product tags and labels attached</li>
+        </ul>
+
+        <h3>Non-Returnable Items</h3>
+        <ul>
+            <li>Custom or personalized equipment</li>
+            <li>Opened or used hygiene products (yoga mats, resistance bands, gloves)</li>
+            <li>Clearance or final sale items</li>
+            <li>Items damaged due to customer misuse</li>
+            <li>Equipment assembled or installed</li>
+        </ul>
+
+        <h3>Return Process</h3>
+        <p>To initiate a return:</p>
+        <ul>
+            <li>Contact our customer service within the return window</li>
+            <li>Provide your order number and reason for return</li>
+            <li>We'll send you a Return Authorization (RA) number</li>
+            <li>Pack the item securely in original packaging</li>
+            <li>Write the RA number clearly on the outside of the package</li>
+            <li>Schedule pickup or drop off at our facility</li>
+        </ul>
+
+        <h3>Refund Timeline</h3>
+        <p>Once we receive and inspect your return:</p>
+        <ul>
+            <li>Inspection completed within 2-3 business days</li>
+            <li>Refund processed within 5-7 business days</li>
+            <li>Funds appear in your account within 7-10 business days</li>
+            <li>Original shipping charges are non-refundable</li>
+        </ul>
+
+        <div class="info-box">
+            <p><strong>Restocking Fee:</strong> A 15% restocking fee applies to opened or assembled items if return is approved on a case-by-case basis.</p>
+        </div>
+
+        <h3>Exchanges</h3>
+        <p>We offer free exchanges for defective or damaged items. For size or color exchanges, please contact customer service to check availability before returning your item.</p>
+
+    </div>
+
+</section>
+</main>
+</body>
+</html>

@@ -1,0 +1,201 @@
+.section-main-container {
+    margin: 20px;
+    /* border: 2px solid black; */
+}
+
+.section-main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    font-family: "Inter", sans-serif;
+}
+
+.welcome-text {
+    font-weight: 500;
+}
+
+.view-more{
+    cursor: pointer;
+  font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size:12px;
+    color: #4747A1;
+    text-decoration: none;
+    padding: 20px;
+}
+.current-date {
+    color: #6e6e6e;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: white;
+    padding: 3px 5px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.section-overview-container {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Changed from center to flex-start */
+}
+.section-overview {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.overview-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    width: 350px;
+    height: 220px;
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+}
+
+.overview-svg {
+    opacity: calc(30%);
+}
+
+.overview-item h2 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-size: 1.75rem;
+}
+
+.overview-item h1 {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 1.85rem;
+}
+
+.overview-item.products {
+    background-color: #7DA0FA;
+}
+
+.overview-item.orders {
+    background-color: #F3797E;
+}
+
+.overview-item.users {
+    background-color: #7978E9;
+}
+
+.overview-item.revenue {
+    background-color: #74c560;
+}
+
+.overview-item.admins {
+    background-color: #4747A1;
+}
+
+.section-summarytable-container {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+.top-tables {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    justify-content: space-between;
+}
+
+.table-name {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #4747A1;
+    padding-left: 20px;
+}
+.table-container{
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+table {
+    border-collapse: collapse;
+            width: 100%;;
+}
+
+th{
+     border-bottom: 1px solid rgb(110, 110, 110,0.1);
+     font-family: "Inter", sans-serif;
+     font-weight: 600;
+     vertical-align: middle;
+     font-size: 14px;
+     padding: 10px;
+
+}
+
+td {
+   font-family: "Poppins", sans-serif;
+     font-weight: 200;
+     font-size: 12px;
+    padding: 16px;
+    border-bottom: 1px solid rgb(110, 110, 110,0.1);
+    background-color: white;
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.product-image-span {
+    display: inline-flex;
+    height: 60px;
+    width: 60px;
+    overflow: hidden;
+}
+
+.image-inspan {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.product-name-image{
+    display: flex;
+    gap: 5px;
+    max-width: 400px;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    text-transform: uppercase;
+}
+
+.status-badge.PENDING {
+    background-color: #FEF3C7;
+    color: #92400E;
+}
+
+.status-badge.PROCESSING {
+    background-color: #DBEAFE;
+    color: #1E40AF;
+}
+
+.status-badge.SHIPPED {
+    background-color: #E0E7FF;
+    color: #4338CA;
+}
+
+.status-badge.DELIVERED {
+    background-color: #D1FAE5;
+    color: #065F46;
+}
+
+.status-badge.CANCELLED {
+    background-color: #FEE2E2;
+    color: #991B1B;
+}

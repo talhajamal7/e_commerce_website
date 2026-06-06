@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/index-style.css}" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <div class="main-nav">
+        <a th:href="@{/home}" class="logo">
+            <img th:src="@{/images/fitmart-logo.svg}" >
+        </a>
+
+        <!-- Search --><div>
+        <form class="search-box" th:action="@{/products/search}" method="get">
+            <input
+                    type="text"
+                    name="query"
+                    placeholder="Search for equipment (e.g., Dumbbells, Treadmill)..."
+                    th:value="${query}"
+            />
+            <button type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+
+
+        <!-- Icons -->
+        <div class="nav-icons">
+
+
+            <a th:href="@{/cart}" class="cart-link">
+                <i class="fas fa-shopping-cart"></i>
+                <!-- Cart count badge - only shows if count > 0 -->
+                <span th:if="${cartItemCount > 0}"
+                      class="cart-badge"
+                      th:text="${cartItemCount}">0</span>
+            </a>
+            <!-- User Info Block -->
+            <div th:if="${#authorization.expression('isAnonymous()')}">
+                <a th:href="@{/login}" class="login-btn"><i class="far fa-user"></i></a>
+            </div>
+            <!-- If logged in -->
+            <div th:if="${#authorization.expression('isAuthenticated()')}" class="logged-in">
+                <i class="far fa-user"></i>
+                <div class="user-info">
+                    <p><span th:text="${#authentication.principal.name}"></span></p>
+                    <h1><span th:text="${#authentication.name}"></span></h1><!--displays email-->
+                </div>
+                <!-- Logout Button -->
+                <a th:href="@{/logout}" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <p>Logout</p>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</header>
+<main layout:fragment="main-section">
+
+</main>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>About Fitmart</h4>
+            <p>Pakistan's #1 choice for premium gym equipment. We provide high-quality gear for commercial gyms and
+                home setups.</p>
+            <div class="social-links" style="margin-top: 20px;">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a th:href="@{/aboutus}">About Us</a></li>
+                <li><a th:href="@{/contactus}">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Customer Care</h4>
+            <ul>
+                <li><a th:href="@{/warranty-policy}">Warranty Policy</a></li>
+                <li><a th:href="@{/return-and-refund}">Return & Refund</a></li>
+                <li><a th:href="@{/shipping-info}">Shipping Info</a></li>
+                <li><a th:href="@{/terms-and-services}">Terms of Service</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact Us</h4>
+            <ul>
+                <li><i class="fas fa-map-marker-alt"></i> Foundation University, Rawalpindi</li>
+                <li><i class="fas fa-phone"></i> +92 300 1234567</li>
+                <li><i class="fas fa-envelope"></i> info@fitmart.com</li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2025 FitMart. All Rights Reserved.</p>
+    </div>
+</footer>
+</body>
+</html>

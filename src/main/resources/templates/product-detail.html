@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}">
+
+<head>
+    <title th:text="${product.title} + ' | Fitness Depot'"></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/product-detail-style.css}" rel="stylesheet">
+</head>
+
+<body>
+<main layout:fragment="main-section">
+    <div class="container">
+        <section class="product-detail-wrapper">
+            <div class="product-gallery">
+                <div class="main-image-container">
+                    <img th:src="${product.imageUrl}" th:alt="${product.title}" id="main-product-img">
+                </div>
+            </div>
+
+            <div class="product-content">
+                <span class="category-badge" th:text="${product.gymEquipmentCategories}">Category</span>
+                <h1 class="product-main-title" th:text="${product.title}">Product Name</h1>
+
+                <div class="price-tag" th:text="'₨ ' + ${#numbers.formatDecimal(product.price, 1, 2)}">₨ 0.00</div>
+
+                <p class="description" th:text="${product.description}">
+                    High-quality gym equipment designed for professional and home use. Built for durability and maximum performance.
+                </p>
+
+                <div class="purchase-actions">
+                    <form th:action="@{/cart/add}" method="post" id="addToCartForm">
+                        <input type="hidden" name="productId" th:value="${product.id}">
+
+                        <!-- Quantity Selector -->
+                        <div class="quantity-selector">
+                            <button type="button" class="qty-btn" onclick="decreaseQuantity()">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" name="quantity" id="quantity" value="1" min="1" max="99" readonly class="qty-input">
+                            <button type="button" class="qty-btn" onclick="increaseQuantity()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <button type="submit" class="add-to-cart-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </form>
+                </div>
+
+                <div class="product-features">
+                    <div class="feature-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#57e389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck-icon lucide-truck"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+                        <span>Free Shipping on orders over ₨5000</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#57e389" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check-icon lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                        <span>2 Year Manufacturer Warranty</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast Notification -->
+            <div id="toast" class="toast-hidden">
+                <div class="toast-content">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="toast-message" th:text="${success}">Product added to cart!</span>
+                </div>
+            </div>
+
+            <script th:inline="javascript">
+                // Quantity controls
+                function increaseQuantity() {
+                    const input = document.getElementById('quantity');
+                    const currentValue = parseInt(input.value);
+                    const maxValue = parseInt(input.getAttribute('max'));
+
+                    if (currentValue < maxValue) {
+                        input.value = currentValue + 1;
+                    }
+                }
+
+                function decreaseQuantity() {
+                    const input = document.getElementById('quantity');
+                    const currentValue = parseInt(input.value);
+                    const minValue = parseInt(input.getAttribute('min'));
+
+                    if (currentValue > minValue) {
+                        input.value = currentValue - 1;
+                    }
+                }
+
+                // Toast notification
+                window.onload = function() {
+                    const message = [[${success}]];
+                    if (message) {
+                        const toast = document.getElementById('toast');
+                        toast.className = "toast-show";
+
+                        setTimeout(function() {
+                            toast.className = toast.className.replace("toast-show", "toast-hidden");
+                        }, 3000);
+                    }
+                };
+            </script>
+        </section>
+    </div>
+</main>
+</body>
+</html>

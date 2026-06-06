@@ -1,0 +1,474 @@
+.btn-edit, .btn-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  margin: 0 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.description-setting{
+    max-width : 200px;
+}
+.create-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+.products-total{
+       font-family: "Poppins", sans-serif;
+    font-weight: 700;
+     color: #4747A1;
+}
+.create-btn{
+      font-family: "Poppins", sans-serif;
+    background-color: hsl(241, 72%, 69%);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    text-decoration:none;
+    cursor: pointer;
+    &:hover{
+        background-color: hsl(232, 72%, 69%);
+    }
+}
+.btn-edit {
+  background-color: #ffffff;
+  border: 2px solid #7978E9;
+  color: rgb(0, 0, 0);
+}
+
+.btn-edit:hover {
+    color: white;
+  background-color: #7978E9;
+}
+.btn-edit:hover svg{
+    stroke: white;
+}
+
+
+.btn-delete {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #dc2626;
+}
+
+.btn-edit svg{
+ color: #7978E9;
+}
+.btn-delete svg{
+    stroke: white;
+}
+/* Add these styles to your existing product-dashboard.css or create orders-dashboard.css */
+
+/* Customer Info Styling */
+.customer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.customer-name {
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.customer-email {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Status Badge Styling */
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.status-badge.PENDING {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.CONFIRMED {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.status-badge.PROCESSING {
+    background-color: #e0e7ff;
+    color: #4338ca;
+}
+
+.status-badge.SHIPPED {
+    background-color: #c7d2fe;
+    color: #3730a3;
+}
+
+.status-badge.DELIVERED {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge.CANCELLED {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* View Button Styling */
+.btn-view {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    margin-right: 6px;
+}
+
+.btn-view:hover {
+    background-color: #2563eb;
+}
+
+.btn-view svg {
+    stroke: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .customer-info {
+        font-size: 0.875rem;
+    }
+
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+}
+/* Edit Order Form Styling */
+.form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+.order-info {
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.edit-form {
+    margin-top: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn-submit {
+    flex: 1;
+    padding: 12px 24px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #2563eb;
+}
+
+.btn-cancel {
+    flex: 1;
+    padding: 12px 24px;
+    background-color: #f3f4f6;
+    color: #374151;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-cancel:hover {
+    background-color: #e5e7eb;
+}
+
+/* Order Details Page Styling */
+.order-details-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.order-header h2 {
+    margin: 0;
+    color: #1f2937;
+}
+
+.order-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-edit-inline, .btn-back {
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-edit-inline {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.btn-edit-inline:hover {
+    background-color: #2563eb;
+}
+
+.btn-back {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.btn-back:hover {
+    background-color: #e5e7eb;
+}
+
+/* Info Cards Grid */
+.order-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.info-card {
+    background: #f9fafb;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.info-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.info-card h3 {
+    margin: 0 0 16px 0;
+    color: #1f2937;
+    font-size: 1.125rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.info-value {
+    color: #1f2937;
+}
+
+/* Order Items Table */
+.order-items-section {
+    margin-bottom: 30px;
+}
+
+.order-items-section h3 {
+    margin-bottom: 16px;
+    color: #1f2937;
+}
+
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.items-table thead {
+    background-color: #f3f4f6;
+}
+
+.items-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #374151;
+}
+
+.items-table td {
+    padding: 12px;
+    border-top: 1px solid #e5e7eb;
+    color: #1f2937;
+}
+
+/* Order Summary */
+.order-summary {
+    background: #f9fafb;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    max-width: 400px;
+    margin-left: auto;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.summary-row.total {
+    border-top: 2px solid #e5e7eb;
+    margin-top: 8px;
+    padding-top: 16px;
+}
+
+.summary-label {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.summary-value {
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.summary-row.total .summary-label,
+.summary-row.total .summary-value {
+    font-size: 1.25rem;
+    color: #1f2937;
+}
+
+/* Notes Section */
+.notes-section {
+    background: #fef3c7;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #fde68a;
+}
+
+.notes-section h3 {
+    margin: 0 0 12px 0;
+    color: #92400e;
+}
+
+.notes-section p {
+    margin: 0;
+    color: #78350f;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .order-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .order-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .btn-edit-inline, .btn-back {
+        width: 100%;
+        text-align: center;
+    }
+
+    .items-table {
+        font-size: 0.875rem;
+    }
+
+    .order-summary {
+        max-width: 100%;
+    }
+}

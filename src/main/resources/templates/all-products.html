@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}"
+>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Depot | Premium Gym Equipment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/all-products-style.css}" rel="stylesheet">
+</head>
+
+<body>
+<main layout:fragment="main-section">
+<h2 th:text="${selectedCategory}" class="section-title">Our Products<span th:text="{query}"></span></h2>
+    <div th:if="${#lists.isEmpty(products)}" class="no-results-container">
+        <div class="no-results-content">
+            <i class="fas fa-dumbbell"></i>
+            <h3>No Equipment Found</h3>
+            <p>We couldn't find any products in this category. Try adjusting your filters or browsing our full catalog.</p>
+            <a th:href="@{/}" class="reset-search-btn">Go back</a>
+        </div>
+    </div>
+<section th:unless="${#lists.isEmpty(products)}" class="product-section">
+    <div class="sort-container">
+        <label for="sortSelect">
+            <i class="fas fa-sort"></i> Sort by:
+        </label>
+        <select id="sortSelect" onchange="applySorting(this.value)">
+            <option value="" th:selected="${sort == null or sort == ''}">Default</option>
+            <option value="price_asc" th:selected="${sort == 'price_asc'}">Price: Low to High</option>
+            <option value="price_desc" th:selected="${sort == 'price_desc'}">Price: High to Low</option>
+        </select>
+    </div>
+    <div class="products-grid" >
+        <a class="product-card" th:href="@{/products/{id}(id=${product.id})}" th:each="product : ${products}">
+            <div class="product-img-container">
+                <img th:src="${product.imageUrl}"
+                     th:alt="${product.title}">
+            </div>
+            <div class="product-info">
+                <span class="product-category" th:text="${product.gymEquipmentCategories}"></span>
+                <h3 class="product-title" th:text="${product.title}"></h3>
+                <div class="price-row">
+                    <span class="price" th:text="'₨' + ${#numbers.formatDecimal(product.price, 1, 2)}"></span>
+                </div>
+            </div>
+        </a>
+    </div>
+    <script th:inline="javascript">
+        function applySorting(sortValue) {
+            const currentUrl = new URL(window.location.href);
+
+            if (sortValue) {
+                currentUrl.searchParams.set('sort', sortValue);
+            } else {
+                currentUrl.searchParams.delete('sort');
+            }
+
+            window.location.href = currentUrl.toString();
+        }
+    </script>
+</section>
+
+</main>
+</body>
+
+</html>

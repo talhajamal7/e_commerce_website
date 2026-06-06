@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin-dashboard-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/product-delete-style.css}" rel="stylesheet">
+    <title>Admin Dashboard | Delete - Product</title>
+</head>
+<body>
+<section layout:fragment="section">
+    <div class="delete-container">
+        <div class="delete-header">
+            <div class="delete-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Confirm Deletion</h2>
+            <p>This action cannot be undone</p>
+        </div>
+
+        <div class="delete-body">
+            <div class="warning-message">
+                <p><strong>Warning:</strong> You are about to permanently delete this product from your inventory. This action is irreversible.</p>
+            </div>
+
+            <div class="product-details">
+                <div class="product-details-label">Product to be deleted:</div>
+                <h3 class="product-name" th:text="${productName}">Hex Rubber Dumbbell Set (5kg - 25kg)</h3>
+            </div>
+
+            <form th:action="@{/admin/dashboard/products/delete/{id}(id=${productId})}" method="post">
+                <div class="action-buttons">
+                    <a th:href="@{/admin/dashboard/products}" class="btn btn-cancel">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-delete">
+                        <i class="fas fa-trash-alt"></i>
+                        Delete Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

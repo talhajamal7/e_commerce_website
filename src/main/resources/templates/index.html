@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/index-style.css}" rel="stylesheet">
+</head>
+<body>
+<main layout:fragment="main-section">
+
+<!-- Hero Section -->
+<section class="hero">
+    <h1>Build Your Dream Gym</h1>
+    <p>Premium quality commercial and home gym equipment delivered to your doorstep across Pakistan.</p>
+    <a th:href="@{/products}" class="btn">Shop Now</a>
+</section>
+
+<!-- Features -->
+<section class="features">
+    <div class="feature-item">
+        <i class="fas fa-truck"></i>
+        <h3>Nationwide Delivery</h3>
+        <p>We ship to all major cities</p>
+    </div>
+    <div class="feature-item">
+        <i class="fas fa-tools"></i>
+        <h3>Installation Services</h3>
+        <p>Professional setup available</p>
+    </div>
+    <div class="feature-item">
+        <i class="fas fa-medal"></i>
+        <h3>Best Warranty</h3>
+        <p>Genuine products guarantee</p>
+    </div>
+    <div class="feature-item">
+        <i class="fas fa-headset"></i>
+        <h3>24/7 Support</h3>
+        <p>Expert fitness advice</p>
+    </div>
+</section>
+
+<!-- Categories -->
+    <h2 class="section-title">Shop By Category</h2>
+    <section class="categories">
+        <div class="category-grid">
+            <a th:href="@{/products(category='CARDIO')}" class="cat-card">
+                <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Cardio">
+                <div class="cat-overlay">
+                    <h3>Cardio Machines</h3>
+                </div>
+            </a>
+
+            <a th:href="@{/products(category='STRENGTH')}" class="cat-card">
+                <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Strength">
+                <div class="cat-overlay">
+                    <h3>Strength Training</h3>
+                </div>
+            </a>
+
+            <a th:href="@{/products(category='FUNCTIONAL')}" class="cat-card">
+                <img src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Dumbbells">
+                <div class="cat-overlay">
+                    <h3>Functional / Free Weights</h3>
+                </div>
+            </a>
+
+            <a th:href="@{/products(category='ACCESSORIES')}" class="cat-card">
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Accessories">
+                <div class="cat-overlay">
+                    <h3>Gym Accessories</h3>
+                </div>
+            </a>
+        </div>
+    </section>
+
+<!-- Featured Products -->
+<h2 class="section-title">Featured Products</h2>
+<section class="product-section">
+    <div class="products-grid">
+        <a class="product-card" th:href="@{/products/{id}(id=${product.id})}" th:each="product, iter : ${products}"
+             th:if="${iter.index < 6}">
+            <div class="product-img-container">
+                <img th:src="${product.imageUrl}"
+                     th:alt="${product.title}">
+            </div>
+            <div class="product-info">
+                <span class="product-category" th:text="${product.gymEquipmentCategories}"></span>
+                <h3 class="product-title" th:text="${product.title}"></h3>
+                <div class="price-row">
+                    <span class="price" th:text="'₨' + ${#numbers.formatDecimal(product.price, 1, 2)}"></span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- View More Button -->
+    <div class="view-more-container"  th:if="${products != null and #lists.size(products) > 6}">
+        <a th:href="@{/products}" class="view-more-btn">View All Products</a>
+    </div>
+</section>
+
+</main>
+</body>
+</html>

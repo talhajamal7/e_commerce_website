@@ -1,0 +1,118 @@
+/* Base typography */
+.delete-container {
+    max-width: 520px;
+    margin: 2rem auto;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Header */
+.delete-header {
+    text-align: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.delete-icon {
+    font-size: 2rem;
+    color: #dc2626;
+    margin-bottom: 0.5rem;
+}
+
+/* Headings use Poppins for emphasis */
+.delete-header h2 {
+    margin: 0.3rem 0;
+    font-size: 1.4rem;
+    font-family: "Poppins", "Inter", sans-serif;
+    font-weight: 600;
+}
+
+.delete-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-family: "Inter", sans-serif;
+}
+
+/* Body */
+.delete-body {
+    padding: 1.5rem;
+}
+
+/* Warning box */
+.warning-message {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    padding: 0.9rem;
+    border-radius: 6px;
+    margin-bottom: 1.2rem;
+    font-size: 0.9rem;
+    font-family: "Inter", sans-serif;
+}
+
+/* Product details */
+.product-details {
+    margin-bottom: 1.5rem;
+}
+
+.product-details-label {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 0.3rem;
+    font-family: "Inter", sans-serif;
+}
+
+/* Product name stands out with Poppins */
+.product-name {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: "Poppins", "Inter", sans-serif;
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.7rem;
+}
+
+.btn {
+    padding: 0.55rem 1.1rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+}
+
+/* Cancel button */
+.btn-cancel {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.btn-cancel:hover {
+    background: #d1d5db;
+}
+
+/* Delete button (slightly stronger typography) */
+.btn-delete {
+    background: #dc2626;
+    color: #ffffff;
+    font-family: "Poppins", "Inter", sans-serif;
+    font-weight: 500;
+}
+
+.btn-delete:hover {
+    background: #b91c1c;
+}

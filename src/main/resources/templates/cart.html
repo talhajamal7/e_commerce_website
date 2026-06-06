@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}">
+
+<head>
+    <title>Shopping Cart | Fitness Depot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/cart-style.css}" rel="stylesheet">
+</head>
+
+<body>
+<main layout:fragment="main-section">
+    <div class="container">
+        <h1 class="page-title">Shopping Cart</h1>
+
+        <!-- Success/Error Messages -->
+        <div th:if="${success}" class="message success">
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${success}"></span>
+        </div>
+        <div th:if="${error}" class="message error">
+            <i class="fas fa-exclamation-circle"></i>
+            <span th:text="${error}"></span>
+        </div>
+
+        <!-- Empty Cart -->
+        <div th:if="${isEmpty}" class="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <h2>Your cart is empty</h2>
+            <p>Add some items to get started!</p>
+            <a th:href="@{/}" class="continue-shopping-btn">
+                Continue Shopping
+            </a>
+        </div>
+
+        <!-- Cart Items -->
+        <div th:if="${!isEmpty}" class="cart-wrapper">
+            <div class="cart-items-section">
+                <div class="cart-item" th:each="item : ${cartItems}">
+                    <div class="item-image">
+                        <img th:src="${item.product.imageUrl}" th:alt="${item.product.title}">
+                    </div>
+
+                    <div class="item-details">
+                        <span class="item-category" th:text="${item.product.gymEquipmentCategories}">Category</span>
+                        <h3 class="item-title" th:text="${item.product.title}">Product Name</h3>
+                        <p class="item-price" th:text="'₨ ' + ${#numbers.formatDecimal(item.product.price, 1, 2)}">₨ 0.00</p>
+                    </div>
+
+                    <div class="item-actions">
+                        <!-- Quantity Controls -->
+                        <div class="quantity-controls">
+                            <form th:action="@{/cart/update/{id}(id=${item.product.id})}" method="post" style="display: inline;">
+                                <input type="hidden" name="quantity" th:value="${item.quantity - 1}">
+                                <button type="submit" class="qty-btn">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </form>
+
+                            <input type="number" th:value="${item.quantity}" readonly class="qty-input">
+
+                            <form th:action="@{/cart/update/{id}(id=${item.product.id})}" method="post" style="display: inline;">
+                                <input type="hidden" name="quantity" th:value="${item.quantity + 1}">
+                                <button type="submit" class="qty-btn">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="item-subtotal">
+                            <span th:text="'₨ ' + ${#numbers.formatDecimal(item.subtotal, 1, 2)}">₨ 0.00</span>
+                        </div>
+
+                        <form th:action="@{/cart/remove/{id}(id=${item.product.id})}" method="post" style="display: inline;">
+                            <button type="submit" class="remove-btn" onclick="return confirm('Remove this item?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Summary -->
+            <div class="cart-summary">
+                <h2>Order Summary</h2>
+
+                <div class="summary-row">
+                    <span>Subtotal (<span th:text="${totalItems}">0</span> items)</span>
+                    <span th:text="'₨ ' + ${#numbers.formatDecimal(cartTotal, 1, 2)}">₨ 0.00</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span th:text="${cartTotal >= 5000 ? 'FREE' : '₨ 250'}">₨ 250</span>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span th:text="'₨ ' + ${#numbers.formatDecimal(cartTotal + (cartTotal < 5000 ? 250 : 0), 1, 2)}">₨ 0.00</span>
+                </div>
+
+                <div class="shipping-note" th:if="${cartTotal < 5000}">
+                    <i class="fas fa-info-circle"></i>
+                    Add <span th:text="'₨ ' + ${#numbers.formatDecimal(5000 - cartTotal, 1, 2)}">₨ 0.00</span> more for FREE shipping!
+                </div>
+
+                <div class="shipping-note success" th:if="${cartTotal >= 5000}">
+                    <i class="fas fa-check-circle"></i>
+                    You qualify for FREE shipping!
+                </div>
+
+                <form th:action="@{/orders/checkout}" method="get">
+                    <button type="submit" class="checkout-btn">
+                        <i class="fas fa-lock"></i> Proceed to Checkout
+                    </button>
+                </form>
+
+                <a th:href="@{/products}" class="continue-link">
+                    <i class="fas fa-arrow-left"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | FitMart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/login-style.css}" rel="stylesheet">
+</head>
+<body>
+<main layout:fragment="main-section">
+<section class="login-section">
+    <div class="login-card">
+        <div class="login-header">
+            <div th:if="${param.registered}" class="message success">
+                Registration successful! You can now log in.
+            </div>
+            <div th:if="${param.error}" class="message error">
+                Invalid email or password. Please try again.
+            </div>
+            <h2>Welcome Back</h2>
+            <p>Enter your credentials to access your account.</p>
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username">Email Address</label>
+                <input type="email" id="username" name="username" placeholder="e.g. name@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+
+            <button type="submit" class="btn-login">Login</button>
+
+            <div class="signup-prompt">
+                Don't have an account? <a th:href="@{/register}">Create Account</a>
+            </div>
+        </form>
+    </div>
+</section>
+</main>
+</body>
+</html>

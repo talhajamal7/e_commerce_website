@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin-dashboard-layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Users Management</title>
+    <link rel="stylesheet" th:href="@{/css/users-style.css}">
+</head>
+<body>
+<section layout:fragment="section">
+    <div class="users-container">
+        <div class="users-header">
+            <h1>Users Management</h1>
+            <p class="users-subtitle">View all registered users</p>
+        </div>
+
+        <div class="users-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 21a8 8 0 0 0-16 0"/>
+                        <circle cx="10" cy="8" r="5"/>
+                        <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Users</h3>
+                    <p class="stat-number" th:text="${userCount}">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="users-table-section">
+            <div class="table-header">
+                <h2>All Users</h2>
+                <div class="table-actions">
+                    <input type="text" id="searchInput" placeholder="Search users..." class="search-input">
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="users-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Joined Date</th>
+                        <th>Last Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user, iterStat : ${users}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td>
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <span th:text="${#strings.substring(user.name, 0, 1)}">U</span>
+                                </div>
+                                <span th:text="${user.name}">John Doe</span>
+                            </div>
+                        </td>
+                        <td th:text="${user.email}">user@example.com</td>
+                        <td>
+                            <span class="role-badge user-role" th:text="${user.role}">USER</span>
+                        </td>
+                        <td th:text="${#temporals.format(user.createdAt, 'dd/MM/yyyy')}">01/01/2025</td>
+                        <td th:text="${#temporals.format(user.updatedAt, 'dd/MM/yyyy')}">01/01/2025</td>
+                        <td>
+                            <button class="btn-view"
+                                    th:data-user-id="${user.id}"
+                                    th:data-user-name="${user.name}"
+                                    th:data-user-email="${user.email}"
+                                    th:data-user-role="${user.role}"
+                                    th:data-user-created="${#temporals.format(user.createdAt, 'dd/MM/yyyy')}"
+                                    th:data-user-updated="${#temporals.format(user.updatedAt, 'dd/MM/yyyy')}"
+                                    onclick="viewUser(this)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                View
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div th:if="${#lists.isEmpty(users)}" class="empty-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <h3>No Users Found</h3>
+                    <p>There are currently no users registered in the system.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View User Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>User Details</h2>
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="user-detail-avatar">
+                    <div class="large-avatar" id="modalAvatar">U</div>
+                </div>
+                <div class="user-details-grid">
+                    <div class="detail-item">
+                        <label>User ID</label>
+                        <p id="modalUserId">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Full Name</label>
+                        <p id="modalName">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Email Address</label>
+                        <p id="modalEmail">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Role</label>
+                        <p id="modalRole">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Account Created</label>
+                        <p id="modalCreatedAt">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Last Updated</label>
+                        <p id="modalUpdatedAt">-</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-close" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('.users-table tbody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchValue) ? '' : 'none';
+            });
+        });
+
+        function viewUser(button) {
+            const userId = button.getAttribute('data-user-id');
+            const name = button.getAttribute('data-user-name');
+            const email = button.getAttribute('data-user-email');
+            const role = button.getAttribute('data-user-role');
+            const createdAt = button.getAttribute('data-user-created');
+            const updatedAt = button.getAttribute('data-user-updated');
+
+            document.getElementById('modalUserId').textContent = userId;
+            document.getElementById('modalName').textContent = name;
+            document.getElementById('modalEmail').textContent = email;
+            document.getElementById('modalRole').textContent = role;
+            document.getElementById('modalCreatedAt').textContent = createdAt;
+            document.getElementById('modalUpdatedAt').textContent = updatedAt;
+            document.getElementById('modalAvatar').textContent = name.charAt(0).toUpperCase();
+
+            document.getElementById('userModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('userModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('userModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</section>
+</body>
+</html>

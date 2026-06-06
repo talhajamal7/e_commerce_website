@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin-dashboard-layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product - Admin Dashboard</title>
+    <link th:href="@{/css/create-product-style.css}" rel="stylesheet">
+</head>
+<body>
+<section layout:fragment="section">
+    <div class="main-content">
+        <div class="card product-form-card">
+            <h3 class="card-header">Product Details</h3>
+            <div class="card-body">
+                <form th:action="@{/admin/dashboard/create-products}"
+                      th:object="${product}"
+                      method="POST"
+                      class="product-form"
+                      novalidate>
+
+                    <!-- Product Title -->
+                    <div class="form-group">
+                        <label for="product-title">
+                            Product Title <span class="required">*</span>
+                        </label>
+                        <input type="text"
+                               th:field="*{title}"
+                               id="product-title"
+                               class="form-control"
+                               placeholder="Enter product title"
+                               th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : ''"
+                               required
+                               aria-required="true"
+                               aria-describedby="title-error">
+                        <p class="error"
+                           id="title-error"
+                           th:if="${#fields.hasErrors('title')}"
+                           th:errors="*{title}"
+                           role="alert"></p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group price-group">
+                            <label for="product-price">
+                                Price ($) <span class="required">*</span>
+                            </label>
+                            <input type="number"
+                                   th:field="*{price}"
+                                   step="0.01"
+                                   min="0"
+                                   id="product-price"
+                                   class="form-control"
+                                   placeholder="0.00"
+                                   th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''"
+                                   required
+                                   aria-required="true"
+                                   aria-describedby="price-error">
+                            <p class="error"
+                               id="price-error"
+                               th:if="${#fields.hasErrors('price')}"
+                               th:errors="*{price}"
+                               role="alert"></p>
+                        </div>
+
+                        <div class="form-group quantity-group">
+                            <label for="product-quantity">
+                                Quantity (Units) <span class="required">*</span>
+                            </label>
+                            <input type="number"
+                                   th:field="*{quantity}"
+                                   min="0"
+                                   id="product-quantity"
+                                   class="form-control"
+                                   placeholder="0"
+                                   th:classappend="${#fields.hasErrors('quantity')} ? 'is-invalid' : ''"
+                                   required
+                                   aria-required="true"
+                                   aria-describedby="quantity-error">
+                            <p class="error"
+                               id="quantity-error"
+                               th:if="${#fields.hasErrors('quantity')}"
+                               th:errors="*{quantity}"
+                               role="alert"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-category">
+                            Category <span class="required">*</span>
+                        </label>
+                        <select id="product-category"
+                                th:field="*{gymEquipmentCategories}"
+                                class="form-control"
+                                th:classappend="${#fields.hasErrors('gymEquipmentCategories')} ? 'is-invalid' : ''"
+                                required
+                                aria-required="true"
+                                aria-describedby="category-error">
+                            <option value="" disabled selected>
+                                -- Select Category --
+                            </option>
+                            <option th:each="cat : ${categories}"
+                                    th:value="${cat}"
+                                    th:text="${cat}">
+                            </option>
+                        </select>
+                        <p class="error"
+                           id="category-error"
+                           th:if="${#fields.hasErrors('gymEquipmentCategories')}"
+                           th:errors="*{gymEquipmentCategories}"
+                           role="alert"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-image-url">Image URL</label>
+                        <input type="url"
+                               id="product-image-url"
+                               th:field="*{imageUrl}"
+                               class="form-control"
+                               placeholder="https://example.com/image.jpg"
+                               th:classappend="${#fields.hasErrors('imageUrl')} ? 'is-invalid' : ''"
+                               aria-describedby="image-url-help image-url-error">
+                        <small id="image-url-help" class="form-text">
+                            Enter a direct link to the product image.
+                        </small>
+                        <p class="error"
+                           id="image-url-error"
+                           th:if="${#fields.hasErrors('imageUrl')}"
+                           th:errors="*{imageUrl}"
+                           role="alert"></p>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="product-description">
+                            Description <span class="required">*</span>
+                        </label>
+                        <textarea id="product-description"
+                                  th:field="*{description}"
+                                  class="form-control"
+                                  rows="4"
+                                  placeholder="Enter product description"
+                                  th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''"
+                                  required
+                                  aria-required="true"
+                                  aria-describedby="description-error"></textarea>
+                        <p class="error"
+                           id="description-error"
+                           th:if="${#fields.hasErrors('description')}"
+                           th:errors="*{description}"
+                           role="alert"></p>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            Save Product
+                        </button>
+                        <a th:href="@{/admin/dashboard/products}"
+                           class="btn btn-secondary"
+                           role="button">
+                            <span class="btn-icon">✕</span> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

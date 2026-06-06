@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | FitMart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/signup-style.css}" rel="stylesheet">
+</head>
+<body>
+<main layout:fragment="main-section">
+    <section class="auth-section">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p>Join Fitness Depot for exclusive deals and faster checkout.</p>
+            </div>
+
+            <form id="signupForm" th:action="@{/register}"
+                  th:object="${user}"
+                  method="post" >
+
+                <div class="form-group">
+                    <label for="name" >Full Name</label>
+                    <input type="text" th:field="*{name}"
+                           oninput="this.value = this.value.replace(/[^A-Za-z ]/g, '').replace(/\s+/g, ' ')"
+                            placeholder="e.g. John Doe" required>
+                    <p class="error" th:if="${#fields.hasErrors('name')}"
+                       th:errors="*{name}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email"
+                           th:field="*{email}"
+                           title="Enter a valid email address"
+                           id="email" name="email" placeholder="e.g. name@example.com" required>
+                    <p class="error" th:if="${#fields.hasErrors('email')}"
+                       th:errors="*{email}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password"
+                           id="password"
+                           th:field="*{password}"
+                           name="password" placeholder="Min 8 characters" minlength="8" required>
+                    <p class="error" th:if="${#fields.hasErrors('password')}"
+                       th:errors="*{password}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required>
+                    <span id="password-message" class="password-message"></span>
+                </div>
+
+                <button type="submit" class="btn-submit">Register Now</button>
+
+                <div class="switch-auth-prompt">
+                    Already have an account? <a th:href="@{/login}">Login Here</a>
+                </div>
+            </form>
+        </div>
+    </section>
+    <script>
+        const passwordInput = document.getElementById('password');
+        const confirmInput = document.getElementById('confirm_password');
+        const messageSpan = document.getElementById('password-message');
+        const form = document.getElementById('signupForm');
+
+        // Function to check equality
+        function checkPasswordMatch() {
+            const password = passwordInput.value;
+            const confirm = confirmInput.value;
+
+            // Only check if confirm field has text
+            if (confirm.length > 0) {
+                if (password === confirm) {
+                    messageSpan.textContent = "Passwords match";
+                    messageSpan.className = "password-message password-match";
+                    confirmInput.style.borderColor = "var(--success-color)";
+                } else {
+                    messageSpan.textContent = "Passwords do not match";
+                    messageSpan.className = "password-message password-mismatch";
+                    confirmInput.style.borderColor = "var(--error-color)";
+                }
+            } else {
+                messageSpan.className = "password-message"; // Hide
+                confirmInput.style.borderColor = "#e2e8f0"; // Reset border
+            }
+        }
+
+        confirmInput.addEventListener('input', checkPasswordMatch);
+        passwordInput.addEventListener('input', checkPasswordMatch);
+
+        form.addEventListener('submit', function(e) {
+            if(passwordInput.value !== confirmInput.value) {
+                e.preventDefault();
+                alert("Please make sure your passwords match before submitting.");
+            }
+        });
+    </script>
+
+</body>
+</html>

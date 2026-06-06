@@ -1,0 +1,90 @@
+nav{
+    position: sticky;
+     top: 0;
+        z-index:calc(99);
+    width:100dvw;
+     box-shadow: 0 3px 8px rgb(75, 73, 172,0.15);
+}
+.nav-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(255, 255, 255);
+    padding: 0px 50px;
+}
+.logo-span{
+    text-decoration: none;
+}
+.logo-span,.admin-span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fitmart-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    font-optical-sizing: auto;
+    color: #4B49AC;
+    font-weight: 600;
+    gap: 2px;
+    margin: 3px 0px;
+     cursor: pointer;
+}
+.fitmart-logo-svg{
+    transition: all 150ms ease;
+    &:hover{
+        rotate: calc(15deg);
+    }
+}
+.admin-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     color: #4B49AC;
+    gap: 10px;
+    padding: 2px;
+}
+.admin-details{
+    display: flex;
+    flex-direction: column;
+}
+.admin-name,.admin-email{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+}
+.admin-name{
+    font-weight: 400;
+    font-size: 14px;
+}
+.admin-email{
+    font-weight: 200;
+    font-size: 12px;
+}
+
+.admin-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  background-color: #4B49AC;
+  color: white;
+  gap: 6px;
+  cursor: pointer;
+  padding: 4px 12px;
+  transition: all 0.5s ease-in-out;
+  text-decoration:none;
+}
+
+.logout-text {
+  opacity: 0;
+  max-width: 0;
+  transition:max-width 0.6s ease;
+}
+
+.admin-logout:hover .logout-text {
+  opacity: 1;
+  max-width: 100px;
+}
+

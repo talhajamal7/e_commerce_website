@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}">
+
+<head>
+    <title>Order Confirmation | Fitness Depot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/order-confirmation-style.css}" rel="stylesheet">
+</head>
+
+<body>
+<main layout:fragment="main-section">
+    <div class="container">
+        <!-- Success Message -->
+        <div class="confirmation-header">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1>Order Placed Successfully!</h1>
+            <p>Thank you for your order. We've received your order and will process it shortly.</p>
+        </div>
+
+        <!-- Order Details Card -->
+        <div class="order-details-wrapper">
+            <div class="order-info-section">
+                <!-- Order Number & Status -->
+                <div class="info-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-receipt"></i> Order Information</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="info-row">
+                            <span class="label">Order Number:</span>
+                            <span class="value order-number" th:text="${order.orderNumber}">ORD-20240115-12345</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Order Date:</span>
+                            <span class="value" th:text="${#temporals.format(order.orderDate, 'MMM dd, yyyy HH:mm')}">Jan 15, 2024 14:30</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Status:</span>
+                            <span class="status-badge" th:classappend="${order.status.name()}"
+                                  th:text="${order.status}">PENDING</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Payment Method:</span>
+                            <span class="value">
+                                <i class="fas fa-money-bill-wave"></i> Cash on Delivery
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Information -->
+                <div class="info-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-user"></i> Customer Information</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="info-row">
+                            <span class="label">Name:</span>
+                            <span class="value" th:text="${order.customerName}">John Doe</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Email:</span>
+                            <span class="value" th:text="${order.customerEmail}">john@example.com</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Phone:</span>
+                            <span class="value" th:text="${order.customerPhone}">+92 300 1234567</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shipping Address -->
+                <div class="info-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-map-marker-alt"></i> Shipping Address</h2>
+                    </div>
+                    <div class="card-content">
+                        <p class="address-text" th:text="${order.shippingAddress}">123 Main Street</p>
+                        <p class="address-text">
+                            <span th:text="${order.city}">Karachi</span>
+                            <span th:if="${order.postalCode != null && !order.postalCode.isEmpty()}"
+                                  th:text="' - ' + ${order.postalCode}"></span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Order Notes (if any) -->
+                <div class="info-card" th:if="${order.notes != null && !order.notes.isEmpty()}">
+                    <div class="card-header">
+                        <h2><i class="fas fa-sticky-note"></i> Order Notes</h2>
+                    </div>
+                    <div class="card-content">
+                        <p class="notes-text" th:text="${order.notes}">Special instructions</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Items & Summary -->
+            <div class="order-items-section">
+                <!-- Order Items -->
+                <div class="items-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-box"></i> Order Items</h2>
+                    </div>
+                    <div class="items-list">
+                        <div class="order-item" th:each="item : ${order.orderItems}">
+                            <img th:src="${item.productImageUrl}" th:alt="${item.productTitle}" class="item-image">
+                            <div class="item-info">
+                                <h4 th:text="${item.productTitle}">Product Name</h4>
+                                <p class="item-category" th:text="${item.productCategory}">Category</p>
+                                <p class="item-quantity">Qty: <span th:text="${item.quantity}">1</span></p>
+                                <p class="item-price" th:text="'₨ ' + ${#numbers.formatDecimal(item.productPrice, 1, 2)}">₨ 0.00</p>
+                            </div>
+                            <div class="item-subtotal"
+                                 th:text="'₨ ' + ${#numbers.formatDecimal(item.subtotal, 1, 2)}">
+                                ₨ 0.00
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="summary-card">
+                    <div class="card-header">
+                        <h2>Order Summary</h2>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-row">
+                            <span>Subtotal (<span th:text="${order.totalItems}">0</span> items)</span>
+                            <span th:text="'₨ ' + ${#numbers.formatDecimal(order.subtotal, 1, 2)}">₨ 0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span th:text="${order.shippingCost == 0 ? 'FREE' : '₨ ' + #numbers.formatDecimal(order.shippingCost, 1, 2)}">
+                                ₨ 0.00
+                            </span>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span th:text="'₨ ' + ${#numbers.formatDecimal(order.total, 1, 2)}">₨ 0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a th:href="@{/}" class="btn btn-primary">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                    <a th:href="@{/products}" class="btn btn-secondary">
+                        <i class="fas fa-shopping-bag"></i> Continue Shopping
+                    </a>
+                </div>
+
+                <!-- Confirmation Message -->
+                <div class="confirmation-note">
+                    <i class="fas fa-info-circle"></i>
+                    <p>A confirmation email has been sent to <strong th:text="${order.customerEmail}">your email</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

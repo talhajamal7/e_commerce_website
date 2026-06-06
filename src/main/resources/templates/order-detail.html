@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin-dashboard-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/product-dashboard.css}" rel="stylesheet">
+    <title>Order Details</title>
+</head>
+<body>
+<section layout:fragment="section">
+    <div class="section-summarytable-container">
+        <div class="order-details-container">
+            <div class="order-header">
+                <h2>Order Details</h2>
+                <div class="order-actions">
+                    <a th:href="@{/admin/dashboard/orders/edit/{id}(id=${order.id})}" class="btn-edit-inline">
+                        Edit Status
+                    </a>
+                    <a th:href="@{/admin/dashboard/orders}" class="btn-back">Back to Orders</a>
+                </div>
+            </div>
+
+            <div class="order-info-grid">
+                <!-- Order Information -->
+                <div class="info-card">
+                    <h3>Order Information</h3>
+                    <div class="info-row">
+                        <span class="info-label">Order Number:</span>
+                        <span class="info-value" th:text="${order.orderNumber}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Order Date:</span>
+                        <span class="info-value" th:text="${#temporals.format(order.orderDate, 'dd MMMM yyyy HH:mm')}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Status:</span>
+                        <span class="status-badge"
+                              th:classappend="${order.status.name()}"
+                              th:text="${order.status}">
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Payment Method:</span>
+                        <span class="info-value" th:text="${order.paymentMethod}"></span>
+                    </div>
+                </div>
+
+                <!-- Customer Information -->
+                <div class="info-card">
+                    <h3>Customer Information</h3>
+                    <div class="info-row">
+                        <span class="info-label">Name:</span>
+                        <span class="info-value" th:text="${order.customerName}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value" th:text="${order.customerEmail}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Phone:</span>
+                        <span class="info-value" th:text="${order.customerPhone}"></span>
+                    </div>
+                </div>
+
+                <!-- Shipping Information -->
+                <div class="info-card full-width">
+                    <h3>Shipping Information</h3>
+                    <div class="info-row">
+                        <span class="info-label">Address:</span>
+                        <span class="info-value" th:text="${order.shippingAddress}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">City:</span>
+                        <span class="info-value" th:text="${order.city}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Postal Code:</span>
+                        <span class="info-value" th:text="${order.postalCode}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="order-items-section">
+                <h3>Order Items</h3>
+                <table class="items-table">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${order.orderItems}">
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <img th:if="${item.productImageUrl != null}"
+                                     th:src="${item.productImageUrl}"
+                                     th:alt="${item.productTitle}"
+                                     style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                                <span th:text="${item.productTitle}"></span>
+                            </div>
+                        </td>
+                        <td th:text="${item.quantity}"></td>
+                        <td th:text="'₨' + ${#numbers.formatDecimal(item.productPrice, 1, 2)}"></td>
+                        <td th:text="'₨' + ${#numbers.formatDecimal(item.subtotal, 1, 2)}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span class="summary-label">Subtotal:</span>
+                    <span class="summary-value" th:text="'₨' + ${#numbers.formatDecimal(order.subtotal, 1, 2)}"></span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Shipping Cost:</span>
+                    <span class="summary-value" th:text="'₨' + ${#numbers.formatDecimal(order.shippingCost, 1, 2)}"></span>
+                </div>
+                <div class="summary-row total">
+                    <span class="summary-label">Total:</span>
+                    <span class="summary-value" th:text="'₨' + ${#numbers.formatDecimal(order.total, 1, 2)}"></span>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="notes-section" th:if="${order.notes != null and !#strings.isEmpty(order.notes)}">
+                <h3>Notes</h3>
+                <p th:text="${order.notes}"></p>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

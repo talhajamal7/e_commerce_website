@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMart | Warranty Policy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/warranty-policy-style.css}" rel="stylesheet">
+</head>
+<body>
+<main layout:fragment="main-section">
+<section class="policy-main">
+    <!-- Terms of Service -->
+    <div id="terms" class="policy-section">
+        <h2>Warranty Policy</h2>
+
+        <p>At Fitness Depot, we stand behind the quality of our products. All gym equipment purchased from us comes with comprehensive warranty coverage to ensure your peace of mind.</p>
+
+        <h3>Warranty Coverage</h3>
+        <p>Our warranty covers manufacturing defects and workmanship issues under normal use conditions. The warranty period varies by product category:</p>
+        <ul>
+            <li><strong>Cardio Equipment (Treadmills, Bikes, Ellipticals):</strong> 2 years on frame, 1 year on parts and electronics</li>
+            <li><strong>Strength Training Equipment:</strong> 5 years on frame, 2 years on moving parts</li>
+            <li><strong>Free Weights & Dumbbells:</strong> Lifetime warranty on structural integrity</li>
+            <li><strong>Accessories & Small Items:</strong> 6 months to 1 year depending on product</li>
+        </ul>
+
+        <div class="highlight-box">
+            <strong>Important:</strong> Warranty is valid only with original purchase receipt and begins from the date of purchase.
+        </div>
+
+        <h3>What's Covered</h3>
+        <ul>
+            <li>Manufacturing defects in materials and workmanship</li>
+            <li>Structural frame integrity issues</li>
+            <li>Motor and electronic component failures (within warranty period)</li>
+            <li>Mechanical parts failure under normal use</li>
+            <li>Paint or powder coating defects</li>
+        </ul>
+
+        <h3>What's Not Covered</h3>
+        <ul>
+            <li>Normal wear and tear including upholstery, grips, and cables</li>
+            <li>Damage from improper use, abuse, or neglect</li>
+            <li>Damage from unauthorized modifications or repairs</li>
+            <li>Commercial use of home equipment</li>
+            <li>Cosmetic damage that doesn't affect functionality</li>
+            <li>Damage during transportation after delivery</li>
+        </ul>
+
+        <h3>Claiming Your Warranty</h3>
+        <p>To file a warranty claim, please follow these steps:</p>
+        <ul>
+            <li>Contact our customer service team at +92 300 1234567 or email warranty@fitnessdepot.clone</li>
+            <li>Provide your order number and purchase receipt</li>
+            <li>Describe the issue with photos or videos if possible</li>
+            <li>Our technical team will assess the claim within 48 hours</li>
+            <li>Approved claims will be repaired or replaced at our discretion</li>
+        </ul>
+
+        <div class="info-box">
+            <p><strong>Response Time:</strong> We aim to respond to all warranty claims within 48 hours. Most repairs or replacements are completed within 7-14 business days.</p>
+        </div>
+    </div>
+
+</section>
+</main>
+</body>
+</html>

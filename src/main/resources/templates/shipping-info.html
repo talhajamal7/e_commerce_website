@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMart| Shipping Information</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/shipping-info-style.css}" rel="stylesheet">
+</head>
+<body>
+<main layout:fragment="main-section">
+<section class="policy-main">
+    <!-- Terms of Service -->
+    <div id="terms" class="policy-section">
+        <h2>Shipping Information</h2>
+
+        <p>We ship premium gym equipment across Pakistan with reliable delivery partners. Here's everything you need to know about our shipping services.</p>
+
+        <h3>Delivery Coverage</h3>
+        <p>We deliver to all major cities and regions in Pakistan:</p>
+        <ul>
+            <li><strong>Major Cities:</strong> Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta</li>
+            <li><strong>Other Cities:</strong> Sialkot, Gujranwala, Bahawalpur, Sargodha, Sukkur, and more</li>
+            <li><strong>Remote Areas:</strong> Available with extended delivery time (contact for quote)</li>
+        </ul>
+
+        <h3>Shipping Rates</h3>
+        <div class="info-box">
+            <p><strong>Free Shipping:</strong> Orders over Rs. 50,000 qualify for FREE delivery to major cities!</p>
+        </div>
+
+        <p>Standard shipping rates:</p>
+        <ul>
+            <li><strong>Small Items</strong> (Accessories, Bands, Gloves): Rs. 200 - 350</li>
+            <li><strong>Medium Items</strong> (Dumbbells, Kettlebells, Benches): Rs. 500 - 1,000</li>
+            <li><strong>Large Items</strong> (Treadmills, Multi-gyms, Racks): Rs. 1,500 - 3,500</li>
+            <li><strong>Remote Areas:</strong> Additional Rs. 500 - 1,500</li>
+        </ul>
+
+        <h3>Delivery Timeline</h3>
+        <ul>
+            <li><strong>Major Cities:</strong> 3-5 business days</li>
+            <li><strong>Other Cities:</strong> 5-7 business days</li>
+            <li><strong>Remote Areas:</strong> 7-14 business days</li>
+            <li><strong>Express Delivery:</strong> 1-2 business days (additional charges apply)</li>
+        </ul>
+
+        <div class="highlight-box">
+            <strong>Note:</strong> Delivery times may vary during peak seasons (Eid, New Year) or due to weather conditions.
+        </div>
+
+        <h3>Installation Services</h3>
+        <p>Professional installation available for:</p>
+        <ul>
+            <li>Treadmills and cardio machines: Rs. 2,000 - 4,000</li>
+            <li>Multi-gym stations: Rs. 3,000 - 6,000</li>
+            <li>Power racks and squat racks: Rs. 1,500 - 3,000</li>
+            <li>Complete gym setup: Contact for custom quote</li>
+        </ul>
+
+        <h3>Order Tracking</h3>
+        <p>Once your order ships, you'll receive:</p>
+        <ul>
+            <li>Email confirmation with tracking number</li>
+            <li>SMS updates on delivery status</li>
+            <li>Phone call from delivery team before arrival</li>
+            <li>Real-time tracking via our website</li>
+        </ul>
+
+        <h3>Delivery Guidelines</h3>
+        <ul>
+            <li>Someone must be present to receive the delivery</li>
+            <li>Valid ID required for verification</li>
+            <li>Inspect items before signing delivery receipt</li>
+            <li>Report any damage immediately to driver and customer service</li>
+            <li>Heavy items delivered to ground floor only (additional fee for upper floors)</li>
+        </ul>
+
+        <div class="info-box">
+            <p><strong>Missed Delivery?</strong> Our delivery team will attempt delivery twice. After that, items are held at the depot for 3 days before being returned to warehouse.</p>
+        </div>
+    </div>
+
+</section>
+
+</main>
+</body>
+</html>

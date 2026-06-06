@@ -1,0 +1,43 @@
+.aside-container{
+    height: 100%;
+    background-color: #FCFCFD;
+}
+.aside-div{
+    margin: 20px 15px;
+    padding: 5px;
+}
+.aside-logout{
+    margin: 20px 15px;
+    padding: 5px;
+}
+.aside-item{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #6e6e6e;
+    margin: 5px;
+    padding: 5px 5px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: all 50ms ease;
+    cursor: pointer;
+    &:hover{
+         background-color:#4B49AC ;
+     color:white ;
+    }
+}
+.aside-item.active{
+    background-color:#4B49AC ;
+     color:white ;
+}
+
+.aside-item-text{
+      font-family: "Poppins", sans-serif;
+    font-optical-sizing: auto;
+     font-weight: 400;
+}
+.section-container{
+    height: 100%;
+    background-color: #F5F7FF;
+}

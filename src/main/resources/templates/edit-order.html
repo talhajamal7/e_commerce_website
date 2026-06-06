@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin-dashboard-layout}"
+>
+<head>
+  <meta charset="UTF-8">
+  <link th:href="@{/css/product-dashboard.css}" rel="stylesheet">
+  <title>Edit Order Status</title>
+</head>
+<body>
+<section layout:fragment="section">
+  <div class="section-summarytable-container">
+    <div class="top-tables">
+      <div class="form-container">
+        <h2>Edit Order Status</h2>
+        <p class="order-info">Order Number: <strong th:text="${order.orderNumber}"></strong></p>
+        <p class="order-info">Customer: <strong th:text="${order.customerName}"></strong></p>
+
+        <form th:action="@{/admin/dashboard/orders/update/{id}(id=${order.id})}"
+              method="post"
+              class="edit-form">
+
+          <div class="form-group">
+            <label for="status">Order Status:</label>
+            <select id="status" name="status" class="form-control" required>
+              <option th:each="status : ${statuses}"
+                      th:value="${status}"
+                      th:text="${status}"
+                      th:selected="${status == order.status}">
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Notes (Optional):</label>
+            <textarea id="notes"
+                      name="notes"
+                      class="form-control"
+                      rows="4"
+                      placeholder="Add any notes about this status change..."
+                      th:text="${order.notes}"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Update Status</button>
+            <a th:href="@{/admin/dashboard/orders}" class="btn-cancel">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

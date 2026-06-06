@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{index-layout}">
+
+<head>
+    <title>Checkout | Fitness Depot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/checkout-style.css}" rel="stylesheet">
+</head>
+
+<body>
+<main layout:fragment="main-section">
+    <div class="container">
+        <h1 class="page-title">Checkout</h1>
+
+        <!-- Error Messages -->
+        <div th:if="${error}" class="message error">
+            <i class="fas fa-exclamation-circle"></i>
+            <span th:text="${error}"></span>
+        </div>
+
+        <div class="checkout-wrapper">
+            <!-- Checkout Form -->
+            <div class="checkout-form-section">
+                <form th:action="@{/orders/checkout}" th:object="${checkoutDto}" method="post">
+
+                    <!-- Contact Information -->
+                    <div class="form-section">
+                        <h2><i class="fas fa-user"></i> Contact Information</h2>
+
+                        <div class="form-group">
+                            <label for="customerName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="customerName" th:field="*{customerName}"
+                                   class="form-control" placeholder="John Doe" required>
+                            <span class="error-message" th:if="${#fields.hasErrors('customerName')}"
+                                  th:errors="*{customerName}"></span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerEmail">Email Address <span class="required">*</span></label>
+                                <input type="email" id="customerEmail" th:field="*{customerEmail}"
+                                       class="form-control" placeholder="john@example.com" required>
+                                <span class="error-message" th:if="${#fields.hasErrors('customerEmail')}"
+                                      th:errors="*{customerEmail}"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="customerPhone">Phone Number <span class="required">*</span></label>
+                                <input type="tel" id="customerPhone" th:field="*{customerPhone}"
+                                       class="form-control" placeholder="+92 300 1234567" required>
+                                <span class="error-message" th:if="${#fields.hasErrors('customerPhone')}"
+                                      th:errors="*{customerPhone}"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Address -->
+                    <div class="form-section">
+                        <h2><i class="fas fa-shipping-fast"></i> Shipping Address</h2>
+
+                        <div class="form-group">
+                            <label for="shippingAddress">Street Address <span class="required">*</span></label>
+                            <textarea id="shippingAddress" th:field="*{shippingAddress}"
+                                      class="form-control" rows="3"
+                                      placeholder="House #, Street, Area" required></textarea>
+                            <span class="error-message" th:if="${#fields.hasErrors('shippingAddress')}"
+                                  th:errors="*{shippingAddress}"></span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City <span class="required">*</span></label>
+                                <input type="text" id="city" th:field="*{city}"
+                                       class="form-control" placeholder="Karachi" required>
+                                <span class="error-message" th:if="${#fields.hasErrors('city')}"
+                                      th:errors="*{city}"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="postalCode">Postal Code</label>
+                                <input type="text" id="postalCode" th:field="*{postalCode}"
+                                       class="form-control" placeholder="75500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="form-section">
+                        <h2><i class="fas fa-money-bill-wave"></i> Payment Method</h2>
+
+                        <div class="payment-info-box">
+                            <div class="payment-icon">
+                                <i class="fas fa-hand-holding-usd"></i>
+                            </div>
+                            <div class="payment-details">
+                                <h3>Cash on Delivery (COD)</h3>
+                                <p>Pay with cash when your order is delivered to your doorstep. No advance payment required.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Notes -->
+                    <div class="form-section">
+                        <h2><i class="fas fa-sticky-note"></i> Order Notes (Optional)</h2>
+
+                        <div class="form-group">
+                            <label for="notes">Additional Information</label>
+                            <textarea id="notes" th:field="*{notes}"
+                                      class="form-control" rows="4"
+                                      placeholder="Special instructions, delivery preferences, etc."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="place-order-btn">
+                        <i class="fas fa-check-circle"></i> Place Order
+                    </button>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary-section">
+                <div class="order-summary-card">
+                    <h2>Order Summary</h2>
+
+                    <div class="summary-items">
+                        <div class="summary-item" th:each="entry : ${cartItems}">
+                            <div class="item-info">
+                                <img th:src="${productCache.get(entry.key).imageUrl}"
+                                     th:alt="${productCache.get(entry.key).title}"
+                                     class="item-thumbnail">
+                                <div class="item-details">
+                                    <h4 th:text="${productCache.get(entry.key).title}">Product</h4>
+                                    <p>Qty: <span th:text="${entry.value}">1</span></p>
+                                </div>
+                            </div>
+                            <div class="item-price"
+                                 th:text="'₨ ' + ${#numbers.formatDecimal(productCache.get(entry.key).price * entry.value, 1, 2)}">
+                                ₨ 0.00
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-totals">
+                        <div class="summary-row">
+                            <span>Subtotal (<span th:text="${totalItems}">0</span> items)</span>
+                            <span th:text="'₨ ' + ${#numbers.formatDecimal(subtotal, 1, 2)}">₨ 0.00</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span th:text="${shippingCost == 0 ? 'FREE' : '₨ ' + #numbers.formatDecimal(shippingCost, 1, 2)}">
+                                ₨ 0.00
+                            </span>
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span th:text="'₨ ' + ${#numbers.formatDecimal(total, 1, 2)}">₨ 0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="shipping-badge" th:if="${subtotal >= freeShippingThreshold}">
+                        <i class="fas fa-check-circle"></i>
+                        Free Shipping Applied!
+                    </div>
+
+                    <div class="security-note">
+                        <i class="fas fa-lock"></i>
+                        Your information is secure and encrypted
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
